@@ -1,43 +1,19 @@
-# Moonshine Customs Chatbot 🤖
+# AI Chatbot using NLP
 
-This is a simple Python chatbot built for Moonshine Customs.
+## 📌 Description
+This project is an AI chatbot built using Python and Natural Language Processing (NLP).
 
-## 🔹 Features
-- Provides information about services
-- Shows available locations
-- Displays brand partners
-- Shares contact details
+## 🚀 Features
+- Understands user input
+- Generates intelligent responses
+- Simple and interactive interface
 
-## 🔹 Technologies Used
-- Python
+## 🛠️ Technologies Used
+- Python  
+- Pandas  
+- NumPy  
+- NLP  
 
-## 🔹 How to Run
-1. Download the project
-2. Open terminal
-3. Run:
-   ```bash
-   python chatbot.py
-   
----
-
-## 🔹 Click “Commit changes”
-
-✅ Now your project looks professional on **:contentReference[oaicite:0]{index=0}**
-
----
-
-# 🌐 Next Step: Add to LinkedIn
-
-## 🔹 Copy Your Repo Link
-Example:https://github.com/yourusername/moonshine-chatbot
-
----
-
-## 🔹 Add to :contentReference[oaicite:1]{index=1}
-
-### 👉 Use this:
-
-**Title:**
----
-
-Moonshine Customs Chatbot (Python Project)
+## ▶️ How to Run
+1. Install required libraries  
+2. Run the Python file  
