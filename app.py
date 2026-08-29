@@ -1,85 +1,121 @@
 import streamlit as st
 
+# -----------------------------
+# Moonshine Customs Chat Bot
+# -----------------------------
 
 class ChatBot:
     def __init__(self, name):
         self.name = name
 
         self.knowledge = {
-            "services": "We provide Customization, Accidental Repair, Ceramic & Graphene Coating, and Paintjob.",
-            "location": "We are located in Delhi, Hyderabad, Kolkata, Pune, and Ahmedabad.",
-            "brand partners": "Our brand partners include Hogert and Bosch.",
-            "contact": "You can contact Moonshine Customs for more information about our services and bookings.",
-            "mail": "You can contact us through our official communication channels for enquiries and bookings."
+            "services": (
+                "We provide Customization, Accidental Repair, "
+                "Ceramic & Graphene Coating, and Paintjob."
+            ),
+
+            "locations": (
+                "We are located in Delhi, Hyderabad, Kolkata, Pune, "
+                "and Ahmedabad."
+            ),
+
+            "brands": (
+                "Our brand partners include Hogert and Bosch."
+            ),
+
+            "contact": (
+                "You can contact Moonshine Customs for more information "
+                "about our services and bookings."
+            )
         }
 
-    def respond(self, message):
-        message = message.lower().strip()
+    def get_response(self, user_input):
+        text = user_input.lower().strip()
 
-        # Greetings
-        if any(word in message for word in [
-            "hi", "hello", "hey", "good morning",
-            "good afternoon", "good evening"
-        ]):
-            return "Hello! 👋 Welcome to Moonshine Customs. How can I help you today?"
+        # Greeting
+        greetings = [
+            "hi", "hello", "hey", "hii", "helo",
+            "good morning", "good afternoon", "good evening"
+        ]
+
+        if text in greetings:
+            return (
+                "Hello! 👋 Welcome to Moonshine Customs. "
+                "How can I help you today?"
+            )
 
         # Services
-        if any(word in message for word in [
-            "service", "services", "offering", "offer",
-            "provide", "providing", "what do you do",
-            "what can you do", "what can you provide",
-            "work do you offer", "available services"
-        ]):
+        service_keywords = [
+            "service", "services",
+            "offer", "offering", "offerings",
+            "provide", "providing",
+            "do you do",
+            "what do you do",
+            "work"
+        ]
+
+        if any(keyword in text for keyword in service_keywords):
             return self.knowledge["services"]
 
-        # Location
-        if any(word in message for word in [
-            "location", "locations", "located", "branch",
-            "branches", "where are you", "where are you located",
+        # Locations
+        location_keywords = [
+            "location", "locations",
+            "where", "located",
+            "branch", "branches",
             "city", "cities"
-        ]):
-            return self.knowledge["location"]
+        ]
+
+        if any(keyword in text for keyword in location_keywords):
+            return self.knowledge["locations"]
 
         # Brand partners
-        if any(word in message for word in [
-            "brand", "brands", "partner", "partners",
-            "bosch", "hogert"
-        ]):
-            return self.knowledge["brand partners"]
+        brand_keywords = [
+            "brand", "brands",
+            "partner", "partners",
+            "brand partner",
+            "brand partners",
+            "company", "companies"
+        ]
 
-        # Contact
-        if any(word in message for word in [
-            "contact", "phone", "number", "call",
-            "reach", "booking", "book", "appointment"
-        ]):
+        if any(keyword in text for keyword in brand_keywords):
+            return self.knowledge["brands"]
+
+        # Booking / contact
+        booking_keywords = [
+            "book", "booking",
+            "appointment",
+            "schedule",
+            "contact",
+            "call",
+            "enquiry",
+            "inquiry"
+        ]
+
+        if any(keyword in text for keyword in booking_keywords):
             return self.knowledge["contact"]
 
-        # Email
-        if any(word in message for word in [
-            "email", "mail", "e-mail"
-        ]):
-            return self.knowledge["mail"]
-
-        # Thanks
-        if any(word in message for word in [
-            "thank", "thanks", "thank you"
-        ]):
-            return "You're welcome! 😊 Let me know if you need anything else."
-
+        # Default response
         return (
-            "I'm sorry, I didn't understand that. "
-            "You can ask me about our services, locations, "
-            "brand partners, contact details, or bookings."
+            "I'm sorry, I didn't understand that. 🤔\n\n"
+            "You can ask me about:\n"
+            "• Our services\n"
+            "• Our locations\n"
+            "• Our brand partners\n"
+            "• Appointments and bookings"
         )
 
 
-# Streamlit page
+# -----------------------------
+# Streamlit UI
+# -----------------------------
+
 st.set_page_config(
     page_title="Moonshine Customs Chat Bot",
     page_icon="🚗"
 )
 
 st.title("🚗 Moonshine Customs Chat Bot")
+
 st.write(
     "Ask me about our services, locations, brand partners, "
     "or contact details."
@@ -98,10 +134,10 @@ for message in st.session_state.messages:
         st.write(message["content"])
 
 # Chat input
-user_input = st.chat_input("Ask something...")
+user_input = st.chat_input("Ask me something...")
 
 if user_input:
-    # Show user message
+    # Display user message
     st.session_state.messages.append({
         "role": "user",
         "content": user_input
@@ -111,9 +147,9 @@ if user_input:
         st.write(user_input)
 
     # Generate response
-    response = bot.respond(user_input)
+    response = bot.get_response(user_input)
 
-    # Show bot response
+    # Display bot response
     st.session_state.messages.append({
         "role": "assistant",
         "content": response
