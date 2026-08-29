@@ -51,7 +51,6 @@ class ChatBot:
             "provide", "providing",
             "do you do",
             "what do you do",
-            "work"
         ]
 
         if any(keyword in text for keyword in service_keywords):
